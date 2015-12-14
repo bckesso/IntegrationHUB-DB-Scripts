@@ -6,8 +6,8 @@ USE `integrationhubdb`;
 /* 1. Verify effected customers */
 SELECT * FROM customer_system WHERE system_id=(SELECT id FROM system WHERE VALUE='JIRA');
 
-/* 2. It must return 4 rows */
-SELECT * FROM system_property WHERE NAME IN ('customfield_wf_id','customfield_wf_obj_type','workfrontTasksBecome','workfrontIssuesBecome');
+/* 2. It must return 5 rows */
+SELECT * FROM system_property WHERE NAME IN ('customfield_wf_id','customfield_wf_obj_type','customfield_assignees','workfrontTasksBecome','workfrontIssuesBecome');
 
 /* 3. It must return 1 row */
 SELECT * FROM system_mapping_property WHERE NAME LIKE 'unpairedSubTaskAction';

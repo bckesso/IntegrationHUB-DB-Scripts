@@ -16,8 +16,9 @@ CREATE TABLE `master_email_configuration` (
 	PRIMARY KEY (`id`) ) ENGINE=INNODB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 	
 /* UPDATE THE SYSTEM PROPERTIES FOR WF ID AND WF OBJECT TYPE */	
-UPDATE system_property SET NAME='customfield_wf_id',display_name='Customfield Wrokfront ID' WHERE NAME LIKE 'customfield_issue';
+UPDATE system_property SET NAME='customfield_wf_id',display_name='Customfield Workfront ID' WHERE NAME LIKE 'customfield_issue';
 UPDATE system_property SET NAME='customfield_wf_obj_type',display_name='Customfield Workfront Object Type' WHERE NAME LIKE 'customfield_task';
+UPDATE system_property SET display_name='Customfield Workfront Assignees' WHERE NAME LIKE 'customfield_assignees';
 
 /* INSERT TWO NEW PROPERTIES "workfrontTasksBecome" AND "workfrontIssuesBecome" IN system_property TABLE FOR JIRA SYSTEM. */
 INSERT INTO system_property (system_id,NAME,display_name,value_type_id,default_value) 
@@ -27,7 +28,7 @@ VALUES ((SELECT id FROM system WHERE NAME='JIRA'),'workfrontIssuesBecome','Workf
 
 /* INSERT "unpairedSubTaskAction" PROPERTY INTO "system_mapping_property" TABLE. */
 INSERT INTO system_mapping_property (system_mapping_id,NAME,display_name,default_value,description,value_type_id) 
-	VALUES ((SELECT id FROM system_mapping WHERE from_system_id=(SELECT id FROM system WHERE VALUE='WORKFRONT') AND to_system_id=(SELECT id FROM system WHERE VALUE='JIRA')), 'unpairedSubTaskAction', 'Unpaired Sub-Task Action',1,'"Roll up activity on children tasks" option will not sync actual hours from Wrokfront To JIRA',5);
+	VALUES ((SELECT id FROM system_mapping WHERE from_system_id=(SELECT id FROM system WHERE VALUE='WORKFRONT') AND to_system_id=(SELECT id FROM system WHERE VALUE='JIRA')), 'unpairedSubTaskAction', 'Unpaired Sub-Task Action',1,'"Roll up activity on children tasks" option will not sync actual hours from Workfront To JIRA',5);
 
 /* DROP PROCEDURE */
 DROP PROCEDURE IF EXISTS ADD_SYSTEM_AND_MAPPING_PROPERTIES_FOR_EXISTING_CUSTOMERS;
